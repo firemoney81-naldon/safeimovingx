@@ -1,23 +1,383 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MovingCompany",
+      "name": "경주포장이사 전문업체",
+      "description": "2026년 경주 지역 맞춤형 이사 전문 서비스. 안전한 포장이사, 사무실이사, 원룸이사, 짐보관 서비스를 제공하며, 합리적인 비용으로 고객 만족을 최우선으로 합니다.",
+      "url": "https://www.경주포장이사.com",
+      "telephone": "+82-54-1234-5678",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "경주시",
+        "addressRegion": "경상북도",
+        "postalCode": "38100",
+        "streetAddress": "경상북도 경주시 이사로 100"
+      },
+      "sameAs": [
+        "https://www.facebook.com/경주포장이사",
+        "https://instagram.com/경주포장이사",
+        "https://blog.naver.com/경주포장이사"
+      ],
+      "serviceType": [
+        "포장이사",
+        "사무실이사",
+        "원룸이사",
+        "가정이사",
+        "보관이사"
+      ]
+    }
+    </script>
+
+    <!-- Google Fonts Noto Sans KR -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* --- 기본 리셋 및 전역 스타일 --- */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Noto Sans KR', sans-serif; line-height: 1.6; color: #333; background-color: #f4f7f6; }
+      a { color: #007bff; text-decoration: none; transition: color 0.3s; }
+      a:hover, a:focus { color: #0056b3; text-decoration: underline; }
+      h1, h2, h3, h4 { color: #2c3e50; font-weight: 700; }
+      p { font-size: 1.1rem; line-height: 1.8; margin-bottom: 20px; text-align: justify; }
+      ul, ol { margin-bottom: 20px; padding-left: 20px; }
+      li { margin-bottom: 10px; font-size: 1rem; }
+
+      /* --- 헤더 및 내비게이션 --- */
+      header { background-color: #34495e; color: #fff; padding: 25px 15px; text-align: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+      header h1 { font-size: 2.5rem; margin-bottom: 10px; letter-spacing: -1px; }
+      header p { font-size: 1.1rem; font-weight: 300; color: #e0f2f1; margin-bottom: 20px; }
+      nav { max-width: 1200px; margin: 0 auto; }
+      nav ul { list-style: none; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px 30px; }
+      nav ul li a { color: #a5d6a7; font-size: 1.1rem; padding: 8px 15px; border-radius: 6px; transition: background-color 0.3s ease, color 0.3s ease; font-weight: 600; }
+      nav ul li a:hover, nav ul li a:focus { background-color: #4CAF50; color: #fff; text-decoration: none; }
+
+      /* --- 메인 콘텐츠 레이아웃 --- */
+      main { max-width: 1000px; margin: 40px auto; padding: 0 20px; background: white; border-radius: 12px; box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08); }
+
+      /* --- 섹션 스타일 --- */
+      section { padding: 30px 0; border-bottom: 1px dashed #ddd; }
+      section:last-child { border-bottom: none; }
+      h2 { font-size: 2rem; margin-bottom: 25px; color: #2c3e50; border-bottom: 3px solid #4CAF50; padding-bottom: 10px; }
+      h3 { font-size: 1.6rem; margin-top: 30px; margin-bottom: 15px; color: #34495e; }
+
+      /* --- CTA 버튼 디자인 --- */
+      .cta-button { display: inline-block; background-color: #4CAF50; color: white; padding: 16px 32px; font-size: 1.3rem; border-radius: 30px; font-weight: 700; text-align: center; cursor: pointer; transition: background-color 0.3s ease; margin-top: 20px; border: none; text-decoration: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+      .cta-button:hover, .cta-button:focus { background-color: #388E3C; text-decoration: none; }
+      .cta-container { text-align: center; margin-bottom: 40px; }
+
+      /* --- 키워드 및 리스트 스타일 --- */
+      .keywords-list { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0; justify-content: flex-start; }
+      .keywords-list span { background-color: #e8f5e9; color: #388E3C; padding: 8px 15px; border-radius: 20px; font-weight: 500; font-size: 0.95rem; border: 1px solid #c8e6c9; }
+      .keywords-section { background-color: #fcfcfc; padding: 25px; border-radius: 8px; border: 1px solid #f0f0f0; margin-bottom: 30px; }
+      .keywords-section h3 { margin-top: 0; }
+
+      /* --- 표 스타일 --- */
+      table { width: 100%; border-collapse: collapse; margin-bottom: 20px; font-size: 1rem; }
+      th, td { border: 1px solid #e0e0e0; padding: 12px; text-align: center; }
+      th { background-color: #f7f7f7; font-weight: 600; color: #444; }
+
+      /* --- 폼 스타일 (체류시간 증가용) --- */
+      .form-section { background-color: #ecf0f1; padding: 30px; border-radius: 10px; margin: 30px 0; }
+      .form-section h3 { color: #2c3e50; margin-bottom: 20px; border-bottom: none; }
+      .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+      .form-group label { margin-bottom: 5px; font-weight: 500; font-size: 1rem; color: #555; }
+      .form-group input, .form-group select, .form-group textarea { padding: 12px; border: 1px solid #bdc3c7; border-radius: 6px; font-size: 1rem; transition: border-color 0.3s; width: 100%; }
+      .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: #4CAF50; outline: none; box-shadow: 0 0 5px rgba(76, 175, 80, 0.3); }
+      .submit-button { background-color: #4CAF50; color: white; border: none; padding: 15px; border-radius: 6px; cursor: pointer; font-size: 1.1rem; font-weight: 600; width: 100%; transition: background-color 0.3s; }
+      .submit-button:hover { background-color: #388E3C; }
+
+      /* --- 푸터 스타일 --- */
+      footer { background-color: #2c3e50; color: #fff; text-align: center; padding: 30px 15px; font-size: 0.9rem; margin-top: 50px; }
+      footer address { margin-top: 15px; font-style: normal; line-height: 1.8; color: #bdc3c7; }
+
+      /* --- 반응형 디자인 --- */
+      @media (max-width: 768px) {
+        header h1 { font-size: 2rem; }
+        nav ul { flex-direction: column; align-items: center; gap: 10px; }
+        main { margin: 20px auto; padding: 0 15px; }
+        section { padding: 20px 0; }
+        h2 { font-size: 1.7rem; }
+        p, li { font-size: 1rem; }
+        .cta-button { width: 100%; padding: 14px 20px; font-size: 1.1rem; }
+        .keywords-list { justify-content: center; }
+        .keywords-list span { font-size: 0.85rem; padding: 6px 12px; }
+      }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>경주포장이사: 2026년 이사 준비 완벽 가이드</h1>
+        <p>안전한 포장이사와 합리적인 비용, 경주 지역 전문가가 직접 책임집니다.</p>
+        <nav aria-label="주요 메뉴">
+            <ul>
+                <li><a href="#service" class="internal-link">서비스 안내</a></li>
+                <li><a href="#guide" class="internal-link">이사 비용 가이드</a></li>
+                <li><a href="#process" class="internal-link">이사 프로세스</a></li>
+                <li><a href="#review" class="internal-link">고객 후기</a></li>
+                <li><a href="#inquiry" class="internal-link">무료 견적 문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <main>
-      <h1>Home page</h1>
+        <section id="introduction">
+            <h2>경주포장이사 전문업체, 왜 중요할까요?</h2>
+            <p>천년고도 경주는 역사와 문화가 살아 숨 쉬는 아름다운 도시입니다. 새로운 시작을 경주에서 준비하는 고객님들을 위해 저희 경주포장이사 전문업체는 2026년에도 최상의 서비스를 제공할 준비가 되어 있습니다. 이사는 단순히 짐을 옮기는 행위를 넘어, 고객님의 새로운 생활 터전을 마련하는 중요한 과정입니다. 특히 경주는 일반 주택부터 신축 아파트, 한옥까지 다양한 주거 형태가 공존하며, 이사 환경에 대한 깊은 이해가 필수적입니다.</p>
+            <p>저희 업체는 경주 지역의 특성을 완벽히 파악하고 있으며, 고객님의 소중한 가구를 안전하게 운반하기 위한 맞춤형 솔루션을 제공합니다. 포장이사 서비스는 고객이 짐을 싸고 푸는 번거로움 없이 모든 과정을 전문가에게 맡기는 방식으로, 바쁜 현대인에게 가장 적합한 이사 형태입니다. 저희는 경주 지역의 수많은 성공적인 이사 경험을 바탕으로, 고객 만족을 최우선으로 생각합니다.</p>
+            <div class="cta-container">
+                <a href="#inquiry" class="cta-button" aria-label="경주 포장이사 무료 견적 받기">2026년 경주 이사 견적 문의 (무료)</a>
+            </div>
+        </section>
+
+        <section id="service">
+            <h2>경주포장이사 서비스 안내: 고객 맞춤형 솔루션</h2>
+            <p>저희 경주 이삿짐센터는 다양한 고객의 요구를 충족시키기 위해 맞춤형 이사 서비스를 제공합니다. 고객님의 상황에 맞는 이사 유형을 선택하여 가장 합리적인 비용으로 최상의 서비스를 경험하실 수 있습니다.</p>
+
+            <h3>1. 프리미엄 포장이사 (Full Service Packing Moving)</h3>
+            <p>고객의 손길이 전혀 필요 없는 최고급 이사 서비스입니다. 짐 정리부터 포장, 운반, 배치, 청소까지 모든 과정을 전문 인력이 전담합니다. 특히 고가품이나 귀중품이 많은 고객님, 바쁜 일정으로 이사에 신경 쓰기 어려운 고객님께 추천드립니다.</p>
+            <ul>
+                <li><strong>포장 작업:</strong> 의류, 주방용품, 가구 등 품목별 전문 포장재 사용.</li>
+                <li><strong>운반 및 배치:</strong> 짐 배치도를 기반으로 정확한 위치에 재배치.</li>
+                <li><strong>청소 및 정리:</strong> 이사 후 바닥 청소 및 마무리 정리 서비스 제공.</li>
+            </ul>
+
+            <h3>2. 일반 포장이사 (Standard Packing Moving)</h3>
+            <p>가장 보편적인 이사 형태로, 합리적인 비용으로 전문적인 서비스를 받을 수 있습니다. 짐 포장 및 운반은 저희 팀이 담당하고, 잔짐 정리 및 청소는 고객이 직접 처리하여 비용을 절감하는 방식입니다.</p>
+
+            <h3>3. 원룸/소형 이사</h3>
+            <p>1인 가구, 원룸, 오피스텔 이사에 최적화된 서비스입니다. 소형 이사지만 짐이 많은 경우, 전문 포장 인력 1~2인이 투입되어 신속하게 이사를 마무리합니다.</p>
+
+            <h3>4. 사무실/기업 이사</h3>
+            <p>경주 지역의 기업 및 사무실 이전을 위한 전문 서비스입니다. 업무 공백을 최소화하고 기밀 문서, IT 장비 등을 안전하게 운반하며, 이전 후 레이아웃에 맞춰 신속하게 배치합니다.</p>
+        </section>
+
+        <section id="process">
+            <h2>경주포장이사 프로세스: 2026년 이사 체크리스트</h2>
+            <p>이사를 성공적으로 진행하기 위해서는 체계적인 계획과 실행이 중요합니다. 저희 경주 이삿짐센터가 제안하는 2026년 이사 준비 체크리스트를 확인하세요.</p>
+
+            <div class="keywords-section">
+                <h3>주요 이사 프로세스 단계</h3>
+                <ul>
+                    <li><strong>1. 무료 방문 견적:</strong> 짐의 양, 이사 조건, 환경을 정확히 파악하여 합리적인 비용 산정.</li>
+                    <li><strong>2. 계약 체결:</strong> 정식 계약서를 통해 서비스 범위, 비용, 피해보상 규정 명시. (공정거래위원회 표준약관 준수)</li>
+                    <li><strong>3. 이사 당일 포장:</strong> 품목별, 공간별 전문 포장재를 사용하여 안전하게 포장.</li>
+                    <li><strong>4. 운반 및 배치:</strong> 안전한 운송 후 고객이 원하는 위치에 재배치.</li>
+                    <li><strong>5. 마무리 및 청소:</strong> 이사 후 정리정돈 및 간단한 청소 서비스 제공.</li>
+                </ul>
+            </div>
+
+            <p><strong><a href="https://www.ftc.go.kr/www/ne/main/main.do" target="_blank">공정거래위원회</a></strong>에서는 이사 서비스 관련 소비자 보호 규정을 제공하고 있습니다. 반드시 정식 계약서를 작성하여 이사 일정을 확정해야 불필요한 분쟁을 예방할 수 있습니다.</p>
+
+            <div class="form-section">
+                <h3>나만의 이사 체크리스트 작성하기 (체류시간 증가용)</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="movingDate">이사 희망 날짜 (2026년 기준)</label>
+                        <input type="date" id="movingDate" name="movingDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="departureType">출발지 주거 형태</label>
+                        <select id="departureType" name="departureType" required>
+                            <option value="">선택하세요</option>
+                            <option value="apartment">아파트</option>
+                            <option value="villa">빌라/연립주택</option>
+                            <option value="house">단독주택</option>
+                            <option value="oneroom">원룸/오피스텔</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalType">도착지 주거 형태</label>
+                        <select id="arrivalType" name="arrivalType" required>
+                            <option value="">선택하세요</option>
+                            <option value="apartment">아파트</option>
+                            <option value="villa">빌라/연립주택</option>
+                            <option value="house">단독주택</option>
+                            <option value="oneroom">원룸/오피스텔</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="specialNotes">특이사항 (짐보관, 피아노, 에어컨 설치 등)</label>
+                        <textarea id="specialNotes" name="specialNotes" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">체크리스트 저장 및 견적 요청</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="guide">
+            <h2>경주포장이사 비용 가이드: 합리적인 견적의 기준</h2>
+            <p>경주포장이사 비용은 여러 요인에 의해 결정됩니다. 단순히 저렴한 가격만을 쫓기보다는, 서비스의 질과 정식 허가 여부를 확인하는 것이 중요합니다. 저희는 투명한 견적 시스템을 통해 고객님께 합리적인 비용을 제시합니다.</p>
+
+            <h3>비용 결정 주요 요인 분석</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>요인</th>
+                        <th>설명</th>
+                        <th>경주 지역 특성 고려 사항</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>이사 물량 (짐의 양)</strong></td>
+                        <td>짐이 많을수록 인력 및 차량 크기가 증가하여 비용이 상승합니다.</td>
+                        <td>정확한 방문 견적을 통해 짐의 양을 파악합니다.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이동 거리</strong></td>
+                        <td>출발지와 도착지 간 거리가 멀수록 운송비가 증가합니다.</td>
+                        <td>경주 시내 이사, 경주-타지역 이사에 따른 운송비 차등 적용.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이동 환경</strong></td>
+                        <td>엘리베이터 유무, 사다리차 사용 여부, 진입로 폭 등에 따라 비용이 달라집니다.</td>
+                        <td>경주 구도심의 좁은 골목길이나 한옥의 환경을 고려한 특수 운반 비용.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>이사 날짜/시즌</strong></td>
+                        <td>손 없는 날, 주말, 이사 성수기(봄/가을)는 비수기 대비 비용이 높습니다.</td>
+                        <td>2026년 이사 계획 시, 성수기를 피하면 비용 절감에 유리합니다.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>보다 정확한 비용 산정을 위해서는 반드시 방문 견적을 받는 것이 좋습니다. 비대면 견적은 오차가 크고 추가 비용 발생 위험이 있습니다. 저희 경주 이삿짐센터는 100% 무료 방문 견적을 통해 정확한 비용을 안내해 드립니다.</p>
+
+            <div class="cta-container">
+                <a href="#inquiry" class="cta-button" aria-label="경주 이사비용 상담">이사 비용 문의 및 절감 팁 상담하기</a>
+            </div>
+        </section>
+
+        <section id="keywords">
+            <h2>경주포장이사 관련 키워드 분석 (SEO 최적화)</h2>
+            <p>고객님들이 실제로 경주포장이사를 검색할 때 사용하는 키워드를 분석하여, 저희 서비스와 가장 관련성이 높은 검색어를 제공합니다. 아래 키워드들은 네이버 검색 시 "함께 많이 찾는" 키워드 및 자동완성 키워드 목록을 기반으로 구성되었습니다.</p>
+
+            <div class="keywords-section">
+                <h3>자동완성 및 연관 키워드 목록</h3>
+                <div class="keywords-list" aria-label="자동완성 및 연관 키워드 목록">
+                    <span>경주포장이사</span>
+                    <span>경주 이삿짐센터</span>
+                    <span>경주 이사견적</span>
+                    <span>경주 이사비용</span>
+                    <span>경주 포장이사 추천</span>
+                    <span>경주 원룸이사</span>
+                    <span>경주 사무실이사</span>
+                    <span>경주 짐보관</span>
+                    <span>경주 이사 잘하는 곳</span>
+                    <span>경주 용달이사</span>
+                </div>
+            </div>
+            <p>이러한 키워드는 고객이 이사를 준비하며 겪는 다양한 검색 의도를 반영합니다. 예를 들어, '경주 짐보관'은 이사 전후로 짐을 잠시 보관해야 하는 고객의 니즈를 보여주며, 저희는 보관이사 서비스를 통해 이러한 요구에 대응하고 있습니다.</p>
+        </section>
+
+        <section id="review">
+            <h2>경주포장이사 고객 후기 및 신뢰성 확보</h2>
+            <p>저희 경주 이삿짐센터는 단순히 짐만 옮기는 것이 아니라, 고객의 새로운 시작을 돕는다는 사명감을 가지고 일합니다. 수많은 고객 후기는 저희의 전문성과 신뢰도를 입증합니다.</p>
+            <h3><a href="https://namu.wiki/w/%EC%9D%B4%EC%82%AC" target="_blank">이사 (나무위키)</a>: 이사 준비 A to Z</h3>
+            <p>이사 서비스에 대한 일반적인 정보와 주의사항은 나무위키나 관련 포털 사이트에서 쉽게 찾을 수 있습니다. 하지만 실제 이사는 현장 경험이 중요합니다. 저희는 경주 지역에서 10년 이상 경험을 쌓은 베테랑 팀을 보유하고 있습니다. 특히 신축 아파트 입주 시 발생할 수 있는 이사 관련 규정 및 주의사항을 철저히 숙지하고 있습니다.</p>
+
+            <h3><a href="https://www.e-cheum.com/board/view.do?bno=573&menuNo=573&pageIndex=1" target="_blank">이사피해 예방 가이드 (한국소비자원)</a></h3>
+            <p>이사 서비스 이용 시 피해보상을 받기 위해서는 반드시 정식 계약서를 작성해야 합니다. 이사 중 발생하는 물품 파손이나 훼손에 대비하여 보험 가입 여부도 확인해야 합니다. 저희 업체는 정식 관허업체로서 모든 피해보상을 위한 보험에 가입되어 있어 안심하고 이사를 맡기실 수 있습니다.</p>
+
+            <div class="form-section">
+                <h3>경주 이사 서비스 만족도 설문 조사</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label>1. 전반적인 이사 서비스 만족도</label>
+                        <input type="radio" name="satisfaction" value="very_good"> 매우 만족
+                        <input type="radio" name="satisfaction" value="good"> 만족
+                        <input type="radio" name="satisfaction" value="normal"> 보통
+                        <input type="radio" name="satisfaction" value="bad"> 불만족
+                    </div>
+                    <div class="form-group">
+                        <label>2. 포장 및 운반 과정의 안전성</label>
+                        <input type="radio" name="safety" value="very_good"> 매우 만족
+                        <input type="radio" name="safety" value="good"> 만족
+                        <input type="radio" name="safety" value="normal"> 보통
+                        <input type="radio" name="safety" value="bad"> 불만족
+                    </div>
+                    <div class="form-group">
+                        <label>3. 추가로 받고 싶은 서비스가 있다면?</label>
+                        <textarea name="additional_service" rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">설문 제출</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="external-info">
+            <h2>공신력 있는 외부 정보 및 참고 자료</h2>
+            <p>이사를 준비하는 고객님들께 도움이 될 만한 공신력 있는 외부 사이트 정보를 제공합니다.</p>
+
+            <h3>1. <a href="https://www.gyeongju.go.kr/main/index.do" target="_blank">경주시청 공식 홈페이지</a></h3>
+            <p>경주시로 전입/전출 시 필요한 행정 정보 및 지원 정책을 확인하실 수 있습니다. 전입 신고, 쓰레기 배출 안내, 지역 생활 정보 등을 미리 숙지하여 이사 후 빠른 정착을 준비하세요.</p>
+
+            <h3>2. <a href="http://www.k-hope.or.kr/" target="_blank">한국이사협회 (K-HOPE)</a></h3>
+            <p>이사 서비스 관련 법규 및 정책, 소비자 피해 구제 제도 등을 안내하는 기관입니다. 정식 허가된 이사업체를 확인하고 이사 관련 분쟁 발생 시 도움을 받을 수 있습니다.</p>
+
+            <h3>3. <a href="https://www.kac.go.kr/contents/index.do" target="_blank">한국소비자보호원</a></h3>
+            <p>이사 서비스 계약 시 주의사항, 표준 약관 등 소비자 권익 보호를 위한 정보를 제공합니다. 계약 전 반드시 확인하여 불이익을 당하지 않도록 주의하세요.</p>
+
+            <h3>4. <a href="https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=148123&ancYn=N" target="_blank">민법 (제2조 신의성실의 원칙)</a></h3>
+            <p>이사 계약을 포함한 모든 법률 행위는 신의성실의 원칙에 입각해야 합니다. 이는 이사 업체와 고객 간의 상호 신뢰를 바탕으로 한 계약 이행을 의미합니다.</p>
+        </section>
+
+        <section id="inquiry">
+            <h2>경주포장이사 무료 견적 및 상담 문의</h2>
+            <p>2026년 이사 계획이 있으신가요? 지금 바로 경주 이삿짐센터 전문가에게 무료 상담을 신청하세요. 고객님의 상황에 맞는 정확한 견적을 제공해 드립니다. 전화 상담은 물론, 온라인 문의 양식을 통해 24시간 언제든 상담 신청이 가능합니다.</p>
+
+            <div class="form-section">
+                <h3>이사 무료 견적 요청 양식 (방문 견적 우선)</h3>
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">성함</label>
+                        <input type="text" id="name" name="name" required placeholder="예: 홍길동">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">연락처</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="예: 010-1234-5678">
+                    </div>
+                    <div class="form-group">
+                        <label for="movingType">이사 종류</label>
+                        <select id="movingType" name="movingType" required>
+                            <option value="">이사 종류 선택</option>
+                            <option value="packing">포장이사 (가정)</option>
+                            <option value="oneroom">원룸/소형 이사</option>
+                            <option value="office">사무실 이사</option>
+                            <option value="storage">보관 이사</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="departureAddress">출발지 주소 (경주시 상세 주소)</label>
+                        <input type="text" id="departureAddress" name="departureAddress" required placeholder="예: 경주시 황성동 XX아파트">
+                    </div>
+                    <div class="form-group">
+                        <label for="arrivalAddress">도착지 주소 (경주시 상세 주소)</label>
+                        <input type="text" id="arrivalAddress" name="arrivalAddress" required placeholder="예: 경주시 동천동 YY빌라">
+                    </div>
+                    <button type="submit" class="submit-button">무료 견적 요청하기</button>
+                </form>
+            </div>
+            <p class="cta-container">
+                <a href="tel:+82-54-1234-5678" class="cta-button" aria-label="전화 문의하기">지금 전화 상담하기</a>
+            </p>
+            <address>
+                <strong>경주포장이사 고객센터:</strong><br />
+                전화: <a href="tel:+82-54-1234-5678">+82-54-1234-5678</a><br />
+                이메일: <a href="mailto:info@gyeongju-moving.com">info@gyeongju-moving.com</a><br />
+                주소: 경상북도 경주시 이사로 100
+            </address>
+        </section>
     </main>
-  </body>
+
+    <footer>
+        <p>Copyright &copy; 2026 경주포장이사. All rights reserved.</p>
+        <address>
+            경주시 이삿짐센터 | 사업자등록번호: 123-45-67890 | 고객센터: 054-1234-5678
+        </address>
+    </footer>
+
+</body>
 </html>
